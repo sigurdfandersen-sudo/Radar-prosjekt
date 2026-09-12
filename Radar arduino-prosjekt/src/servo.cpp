@@ -3,7 +3,7 @@
 
 
 //dette er bare øving for bruk av servomotor og koding og design er fra arduino-boken
-Servo  myServo;
+Servo myServo;
 
 int const potPin = A0;
 int potVal;
