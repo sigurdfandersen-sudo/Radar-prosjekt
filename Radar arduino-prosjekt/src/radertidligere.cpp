@@ -134,3 +134,4 @@ void loop()
     }
     blinkeFunksjon();
 }
+//dette er en sjekk
