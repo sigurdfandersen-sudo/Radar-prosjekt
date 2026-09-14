@@ -16,7 +16,7 @@ int vinkel = 0;
 unsigned long distanse = 0;
 unsigned long sistmaaltid = 0;
 unsigned long naatid = 0;
-
+unsigned long radartid = 0;
 void radarFunksjon(){
 
     digitalWrite(trigpinne, LOW);
@@ -25,7 +25,7 @@ void radarFunksjon(){
     delayMicroseconds(10);
     digitalWrite(trigpinne, LOW);
 
-    unsigned long radartid = pulseIn(ekkopinne, HIGH, 25000);
+    radartid = pulseIn(ekkopinne, HIGH, 25000);
     distanse = radartid * lydhastighet / 2;
 
 }
@@ -52,10 +52,23 @@ void loop(){
     naatid = millis();
 
     if (naatid - sistmaaltid > radarintervall) {
+        sistmaaltid = naatid;
         servokontroll();
         delayMicroseconds(10);
         radarFunksjon();
-        sistmaaltid = naatid;
+         if (radartid == 0) {
+            Serial.println("Radarmåling ugyldig: målte ingen tid");
+            return;
+        }
+        if (distanse >= 300){
+            Serial.println("Radarmåling ugyldig: distanse målt over 3m");
+            return;
+        }
+        if (distanse <= 2){
+            Serial.println("Radarmåling ugyldig: distanse målt under 30cm");
+            return;
+        }
+
         Serial.print(vinkel);
         Serial.print(",");
         Serial.println(distanse);
