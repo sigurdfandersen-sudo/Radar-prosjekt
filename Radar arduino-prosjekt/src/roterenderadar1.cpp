@@ -7,6 +7,7 @@ const int trigpinne = 10;  //output
 const int ekkopinne = 3;   //input
 
 Servo minServo;
+const char* melding;
 
 //konstanter
 const unsigned long radarintervall = 50;
@@ -31,6 +32,7 @@ void radarFunksjon(){
 }
 
 void servokontroll(){
+
     vinkel = vinkel + vinkelendring;
     if (vinkel >= 180 || vinkel <= 0){
         vinkelendring = vinkelendring * -1;
@@ -52,26 +54,29 @@ void loop(){
     naatid = millis();
 
     if (naatid - sistmaaltid > radarintervall) {
+        
         sistmaaltid = naatid;
         servokontroll();
         delayMicroseconds(10);
         radarFunksjon();
          if (radartid == 0) {
-            Serial.println("Radarmåling ugyldig: målte ingen tid");
-            return;
+            melding = "Radarmåling ugyldig: målte ingen tid";
         }
-        if (distanse >= 300){
-            Serial.println("Radarmåling ugyldig: distanse målt over 3m");
-            return;
+        else if (distanse >= 400){
+            melding = "Radarmåling ugyldig: distanse målt over 4m";
         }
-        if (distanse <= 2){
-            Serial.println("Radarmåling ugyldig: distanse målt under 30cm");
-            return;
+        else if (distanse <= 2){
+            melding = "Radarmåling ugyldig: distanse målt under 2cm";
+        }
+        else {
+            melding = "Gyldig";
         }
 
         Serial.print(vinkel);
         Serial.print(",");
-        Serial.println(distanse);
-        
+        Serial.print(distanse);
+        Serial.print(",");
+        Serial.println(melding);
     }
 }
+
