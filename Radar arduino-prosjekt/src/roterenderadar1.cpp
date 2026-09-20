@@ -10,9 +10,9 @@ Servo minServo;
 const char* melding;
 
 //konstanter
-const unsigned long radarintervall = 50;
+const unsigned long radarintervall = 70;
 const float lydhastighet = 0.0345;
-int vinkelendring = 5;
+int vinkelendring = 3;
 int vinkel = 0;
 unsigned long distanse = 0;
 unsigned long sistmaaltid = 0;
