@@ -112,3 +112,4 @@ while True:
         forrige_kordinat = ny_kordinat   
 
     pygame.display.flip() #oppdaterer vinduet
+    
