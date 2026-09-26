@@ -5,7 +5,7 @@ import serial
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-ser = serial.Serial('COM3', 9600, timeout = 1) #tell which port to send info with Arduino
+ser = serial.Serial('COM6', 9600, timeout = 1) #tell which port to send info with Arduino
 clock = pygame.time.Clock() #FPS
 angle_send = 0
 d_angle_send = 0
